@@ -9,7 +9,7 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      cursorColor: KPrimaryColor,
+      cursorColor: kPrimaryColor,
       maxLines: maxLines,
       decoration: InputDecoration(
         hintText: hints,
@@ -23,7 +23,7 @@ class CustomTextField extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: KPrimaryColor )
+            borderSide: BorderSide(color: kPrimaryColor )
         ),
       ),
     );
