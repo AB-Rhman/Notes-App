@@ -1,78 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/views/widgets/custom_text_field.dart';
-import 'custom_bottom.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes_app/cubits/add_note_cubit/add_note_cubit.dart';
+import 'package:notes_app/views/widgets/add_note_form.dart';
 
 class AddNoteBottomSheet extends StatelessWidget {
   const AddNoteBottomSheet({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.0),
-      child: SingleChildScrollView(
-        child: AddNoteForm(),
-      ),
-    );
-  }
-}
-
-class AddNoteForm extends StatefulWidget {
-  const AddNoteForm({
-    super.key,
-  });
-
-  @override
-  State<AddNoteForm> createState() => _AddNoteFormState();
-}
-
-class _AddNoteFormState extends State<AddNoteForm> {
-  final GlobalKey<FormState> formKey = GlobalKey();
-  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
-  String? title, subTitle;
-
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      autovalidateMode: autovalidateMode,
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 32,
-          ),
-          CustomTextField(
-            hints: 'title',
-            onSaved: (value) {
-              title = value;
-            },
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          CustomTextField(
-            hints: 'content',
-            maxLines: 6,
-            onSaved: (value) {
-              subTitle = value;
-            },
-          ),
-          const SizedBox(
-            height: 64,
-          ),
-          CustomBottom(onTap: () {
-            if(formKey.currentState!.validate()){
-              formKey.currentState!.save();
-            } else {
-              autovalidateMode =AutovalidateMode.always;
-              setState(() {
-
-              });
+    return BlocProvider(
+      create: (context) => AddNoteCubit(),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: BlocConsumer<AddNoteCubit, AddNoteState>(
+          listener: (context, state) {
+            if (state is AddNoteFailure) {
+              debugPrint('failure ${state.errMassage}');
             }
-          },),
-          const SizedBox(
-            height: 14,
-          )
-        ],
+
+            if (state is AddNoteSuccess) {
+              Navigator.pop(context);
+            }
+          },
+          builder: (context, state) {
+            return AbsorbPointer(
+              // U can't make any action on bottom sheet if absorbing is true
+              absorbing: state is AddNoteLoading ? true : false,
+              child: Padding(
+                padding:  EdgeInsets.only(
+                  /*
+                  To make bottom sheet scrollable we use that
+                  and change | isScrollControlled: | in showModalBottomSheet to true .
+                   */
+                  bottom: MediaQuery.of(context).viewInsets.bottom
+                ),
+                child: const SingleChildScrollView(
+                  child: AddNoteForm(),
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }

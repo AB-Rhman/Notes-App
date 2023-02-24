@@ -24,15 +24,15 @@ class CustomTextField extends StatelessWidget {
         hintText: hints,
          border: OutlineInputBorder(
            borderRadius: BorderRadius.circular(8),
-           borderSide: BorderSide(color: Colors.white)
+           borderSide: const BorderSide(color: Colors.white)
          ),
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: Colors.white)
+            borderSide: const BorderSide(color: Colors.white)
         ),
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: kPrimaryColor )
+            borderSide: const BorderSide(color: kPrimaryColor )
         ),
       ),
     );
