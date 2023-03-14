@@ -24,7 +24,7 @@ class CustomBottom extends StatelessWidget {
                   child: CircularProgressIndicator(
                     color: Colors.black.withOpacity(0.3),
                   ))
-              : Text('Add',
+              :const Text('Add',
                   style: TextStyle(color: Colors.black, fontSize: 18)),
         ),
       ),
