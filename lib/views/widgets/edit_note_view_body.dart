@@ -76,7 +76,7 @@ class _EditNoteColorsListState extends State<EditNoteColorsList> {
 
   @override
   void initState() {
-    
+
     currentIndex = colors.indexOf(Color(widget.note.color));
     super.initState();
   }
