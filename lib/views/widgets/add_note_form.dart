@@ -7,6 +7,7 @@ import 'package:notes_app/views/widgets/custom_bottom.dart';
 import 'package:notes_app/views/widgets/custom_text_field.dart';
 
 import 'colors_list_view.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 class AddNoteForm extends StatefulWidget {
   const AddNoteForm({
@@ -73,6 +74,22 @@ class _AddNoteFormState extends State<AddNoteForm> {
                         subTitle: subTitle!,
                         date: formattedCurrentDate,
                         color: Colors.blue.value);
+
+                    final snackBar = SnackBar(
+                      elevation: 0,
+                      behavior: SnackBarBehavior.floating,
+                      backgroundColor: Colors.transparent,
+                      content: AwesomeSnackbarContent(
+                        inMaterialBanner: true,
+                        title: 'Note added ',
+                        message: 'The note has been added successfully ',
+                        contentType: ContentType.success,
+                      ),
+                    );
+
+                    ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(snackBar);
 
                     BlocProvider.of<AddNoteCubit>(context).addNote(noteModel);
                   } else {
