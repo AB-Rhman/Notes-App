@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes_app/cubits/notes_cubit/notes_cubit.dart';
@@ -29,11 +30,29 @@ class _EditNoteViewBodyState extends State<EditNoteViewBody> {
             children: [
               CustomAppBar(
                   onPressed: () {
-                    widget.note.title = title ?? widget.note.title;
-                    widget.note.subTitle = title ?? widget.note.subTitle;
-                    widget.note.save();
-                    BlocProvider.of<NotesCubit>(context).fetchAllNotes();
-                    Navigator.pop(context);
+
+                    AwesomeDialog(
+                      context: context,
+                      animType: AnimType.scale,
+                      dialogType: DialogType.noHeader,
+                      buttonsBorderRadius: BorderRadius.circular(4),
+                     dialogBorderRadius: BorderRadius.circular(11) ,
+                      title: 'Save Edit ??',
+                      btnCancelOnPress: () {
+                        BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+                        Navigator.pop(context);
+                      },
+                      btnCancelText: 'Cancel',
+                      btnOkText: 'Ok',
+                      btnOkOnPress: () {
+                        widget.note.title = title ?? widget.note.title;
+                        widget.note.subTitle = title ?? widget.note.subTitle;
+                        widget.note.save();
+                        BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+                        Navigator.pop(context);
+                      },
+
+                    ).show();
                   },
                   text: 'Edit Note',
                   icon: Icons.check),
