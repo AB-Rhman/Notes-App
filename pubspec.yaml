@@ -44,12 +44,16 @@ dependencies:
   intl: ^0.18.0
   awesome_dialog: ^3.0.2
   awesome_snackbar_content: ^0.1.1
+  flutter_launcher_icons: ^0.12.0
 
 dev_dependencies:
   hive_generator: ^2.0.0
   build_runner: ^2.3.3
   flutter_test:
     sdk: flutter
+flutter_icons:
+  image_path: "assets/icons/NotesAppMainIcon.png"
+  android: true
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
